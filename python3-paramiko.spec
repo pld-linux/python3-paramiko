@@ -7,13 +7,13 @@
 Summary:	SSH2 protocol for Python 3
 Summary(pl.UTF-8):	Obsługa protokołu SSH2 w Pythonie 3
 Name:		python3-%{module}
-Version:	4.0.0
+Version:	5.1.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/paramiko/
 Source0:	https://github.com/paramiko/paramiko/archive/%{version}/%{module}-%{version}.tar.gz
-# Source0-md5:	e5722ec7a749c0449824af27961b62f9
+# Source0-md5:	fb3a884c6c4a2d2339d50b6620636c3b
 URL:		https://github.com/paramiko/paramiko/
 BuildRequires:	python3-build
 BuildRequires:	python3-devel >= 1:3.9
@@ -23,8 +23,7 @@ BuildRequires:	python3-setuptools >= 1:77
 BuildRequires:	python3-PyNaCl >= 1.5
 BuildRequires:	python3-bcrypt >= 3.2
 BuildRequires:	python3-cryptography >= 3.3
-# optional
-#BuildRequires:	python3-gssapi >= 1.4.1
+BuildRequires:	python3-icecream >= 2.1
 BuildRequires:	python3-invoke >= 2.0
 BuildRequires:	python3-pyasn1 >= 0.1.7
 BuildRequires:	python3-pytest >= 4.4.2
@@ -84,10 +83,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %py3_install_pyproject
 
-install -d $RPM_BUILD_ROOT%{_examplesdir}/python3-%{module}-%{version}
-cp -a demos/* $RPM_BUILD_ROOT%{_examplesdir}/python3-%{module}-%{version}
-%{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' $RPM_BUILD_ROOT%{_examplesdir}/python3-%{module}-%{version}/*.py
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -96,7 +91,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.rst SECURITY.md TODO sites/www/changelog.rst
 %{py3_sitescriptdir}/%{module}
 %{py3_sitescriptdir}/%{module}-%{version}.dist-info
-%{_examplesdir}/python3-%{module}-%{version}
 
 %if %{with doc}
 %files apidocs
